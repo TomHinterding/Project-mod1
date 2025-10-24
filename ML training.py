@@ -30,7 +30,7 @@ if __name__ == '__main__':
     #evaluate model
     #we determine if it has no/a negative impact or a positive impact on the model if we leave out a feature when training a moddel
     negative_impact = []
-    pOrNo_impact = []
+    pos_Or_no_impact = []
     for col in Train_x:
         knn_compare = KNeighborsClassifier(n_neighbors=5)
         Train_x2, Test_x2, Train_y2, Test_y2 = train_test_split(Table.drop('Class', axis = 1).drop(col, axis=1), Table['Class'], test_size = 0.2, random_state = 42)
@@ -45,7 +45,7 @@ if __name__ == '__main__':
         if diffacc > 0 and difff1 > 0:
             negative_impact.append(col)
         else : 
-            pOrNo_impact.append(col)
+            pos_Or_no_impact.append(col)
     #print(f"negative: {negative_impact} \n positive: {pOrNo_impact}")
 
     #prints a List of features that have a negative impact on the ML performance when removed
@@ -54,7 +54,7 @@ if __name__ == '__main__':
 
     #we create a final Table that only includes the features that have a positive impact when included
     finalTable = Table
-    for col in pOrNo_impact:
+    for col in pos_Or_no_impact:
         finalTable = finalTable.drop(col, axis = 1)
     knn_final = KNeighborsClassifier(n_neighbors=5)
     Train_x_final, Test_x_final, Train_y_final, Test_y_final = train_test_split(finalTable.drop('Class', axis=1), finalTable['Class'], test_size = 0.2, random_state = 42)
