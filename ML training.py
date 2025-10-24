@@ -34,11 +34,11 @@ if __name__ == '__main__':
         Train_x2, Test_x2, Train_y2, Test_y2 = train_test_split(Table.drop('Class', axis = 1).drop(col, axis=1), Table['Class'], test_size = 0.2, random_state = 42)
         knn_compare.fit(Train_x2, Train_y)
         comp_prediction = knn_compare.predict(Test_x2)
-        acc_comp = accuracy_score(Test_y, comp_prediction)
-        prec_comp = precision_score(Test_y, comp_prediction, pos_label='democrat')
-        rec_comp = recall_score(Test_y, comp_prediction, pos_label='democrat')
+        #acc_comp = accuracy_score(Test_y, comp_prediction)
+        #prec_comp = precision_score(Test_y, comp_prediction, pos_label='democrat')
+        #rec_comp = recall_score(Test_y, comp_prediction, pos_label='democrat')
         f1_comp = f1_score(Test_y, comp_prediction, pos_label='democrat')
-        diff = acc - acc_comp
+        diff = f1 - f1_comp
         if diff > 0:
             negative_impact.append(col)
         else : 
