@@ -18,7 +18,7 @@ if __name__ == '__main__':
     #split table into train and test data
     Train_x, Test_x, Train_y, Test_y = train_test_split(Table.drop('Class', axis = 1), Table['Class'], test_size = 0.2, random_state = 42)
 
-    #create ML model
+    #create ML model using every feature
     knn_class = KNeighborsClassifier(n_neighbors=5)
     knn_class.fit(Train_x, Train_y)
     prediction = knn_class.predict(Test_x)
@@ -28,7 +28,8 @@ if __name__ == '__main__':
     f1 = f1_score(Test_y, prediction, pos_label='democrat')
 
     #evaluate model
-    #we determine if it has no/a negative impact or a positive impact on the model if we leave out a feature when training a moddel
+
+    #we determine if it has no/a negative impact or a positive impact on the model if we leave out a feature when training a new model
     negative_impact = []
     pos_Or_no_impact = []
     for col in Train_x:
@@ -68,10 +69,14 @@ if __name__ == '__main__':
     f1_final = f1_score(Test_y_final, final_prediction, pos_label='democrat')
 
     #Evaluation result and the improvement compared to using all features
-    print(f"Final accuracy: {round(acc_final*100, 2)}% | improved by: {round(acc_final*100 - acc*100, 2)}")
-    print(f"Final precision: {round(prec_final*100, 2)}% | improved by: {round(prec_final*100 - prec*100, 2)}")
-    print(f"Final recall: {round(rec_final*100, 2)}% | improved by: {round(rec_final*100 - rec*100, 2)}")
-    print(f"Final f1 : {round(f1_final*100, 2)}% | improved by: {round(f1_final*100 - f1*100, 2)}")
+    print(f"Starting accuracy: {round(acc*100, 2)}%")
+    print(f"Starting precision: {round(prec*100, 2)}%")
+    print(f"Starting recall: {round(rec*100, 2)}%")
+    print(f"Starting f1: {round(f1*100, 2)}%")
+    print(f"Final accuracy: {round(acc_final*100, 2)}% | improved by: {round(acc_final*100 - acc*100, 2)}%")
+    print(f"Final precision: {round(prec_final*100, 2)}% | improved by: {round(prec_final*100 - prec*100, 2)}%")
+    print(f"Final recall: {round(rec_final*100, 2)}% | improved by: {round(rec_final*100 - rec*100, 2)}%")
+    print(f"Final f1 : {round(f1_final*100, 2)}% | improved by: {round(f1_final*100 - f1*100, 2)}%")
 
 #saving the final MLModel
 joblib.dump(knn_final, os.path.join("data/", "MLmodel/", "ClassPrediction.pkl"))
