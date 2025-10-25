@@ -4,6 +4,7 @@ import os
 
 st.set_page_config(
         page_title="Raw Data",
+        layout="wide"
 )
 
 filepath = os.path.join("data/", "table/", "dataset_56_vote.csv")
