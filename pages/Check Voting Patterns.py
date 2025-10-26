@@ -38,19 +38,23 @@ col1, col2 = st.columns([3,10])
 with col1:
         #if you want to change multiselect to a normal selection box, you just also need to change q.querySelectedfeatures function to query feature.
         #might be needed if there is no way to neatly display the data of multiple features in a diagramm.
-        st.session_state.selection = st.multiselect("Select Your Issue:",list(feature_options), format_func=lambda x: feature_options[x], placeholder="Select an option...")
+        st.session_state.selection = st.multiselect("Select Your Issue:",list(feature_options), format_func=lambda x: feature_options[x], placeholder="Select an option...", default=st.session_state.selection)
 st.divider()
 
 if len(st.session_state.selection) != 0:
+        selection_text = f"You Picked: "
+        for feature in st.session_state.selection:
+                selection_text += f"\n- {feature_options[f"{feature}"]}"
+        #picked container
+        with st.container(border=True):
+               st.write(selection_text)
 
         #Table container
         with st.container(border=True):
-                st.write("You Picked: ", st.session_state.selection)
                 q = q.querySelectedfeatures(st.session_state.selection)
                 st.dataframe(q)
 
         st.divider()
         #Diagram container
         with st.container(border=True):
-                st.write("You Picked: ", st.session_state.selection)
                 st.write("Todo: Display Graph")
