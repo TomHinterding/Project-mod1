@@ -49,12 +49,14 @@ if len(st.session_state["selection"]) != 0:
         with st.container(border=True):
                st.write(selection_text)
 
+        tab1, tab2 = st.tabs(["Table", "Graph"])
         #Table container
-        with st.container(border=True):
-                q = q.querySelectedfeatures(st.session_state["selection"])
-                st.dataframe(q)
+        with tab1:
+                with st.container(border=True):
+                        q = q.querySelectedfeatures(st.session_state["selection"])
+                        st.dataframe(q)
 
-        st.divider()
         #Diagram container
-        with st.container(border=True):
-                st.write("Todo: Display Graph")
+        with tab2:
+                with st.container(border=True):
+                        st.write("Todo: Display Graph")
