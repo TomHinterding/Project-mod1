@@ -39,7 +39,3 @@ def queryall():
     allfeatureList = usedData.columns.tolist()
     totalquery = querySelectedfeatures(allfeatureList)
     return totalquery
-    
-
-print(queryfeature("handicapped-infants"))
-print(queryall())
