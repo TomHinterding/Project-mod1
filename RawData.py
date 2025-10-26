@@ -7,6 +7,7 @@ st.set_page_config(
         layout="wide"
 )
 
+st.header("Raw Voting Data")
 filepath = os.path.join("data/", "table/", "dataset_56_vote.csv")
 Raw_Data = pd.read_csv(filepath)
 

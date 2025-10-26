@@ -31,19 +31,19 @@ st.divider()
 
 #creates a the selection session state variable that way we can update the selection directly
 if "selection" not in st.session_state:
-    st.session_state.selection = "handicapped-infants"
+    st.session_state["selection"] = []
 
 #adjusts size of multiselect
 col1, col2 = st.columns([3,10])
 with col1:
         #if you want to change multiselect to a normal selection box, you just also need to change q.querySelectedfeatures function to query feature.
         #might be needed if there is no way to neatly display the data of multiple features in a diagramm.
-        st.session_state.selection = st.multiselect("Select Your Issue:",list(feature_options), format_func=lambda x: feature_options[x], placeholder="Select an option...", default=st.session_state.selection)
+        st.session_state["selection"] = st.multiselect("Select Your Issue:",list(feature_options), format_func=lambda x: feature_options[x], placeholder="Select an option...")
 st.divider()
 
-if len(st.session_state.selection) != 0:
+if len(st.session_state["selection"]) != 0:
         selection_text = f"You Picked: "
-        for feature in st.session_state.selection:
+        for feature in st.session_state["selection"]:
                 selection_text += f"\n- {feature_options[f"{feature}"]}"
         #picked container
         with st.container(border=True):
@@ -51,7 +51,7 @@ if len(st.session_state.selection) != 0:
 
         #Table container
         with st.container(border=True):
-                q = q.querySelectedfeatures(st.session_state.selection)
+                q = q.querySelectedfeatures(st.session_state["selection"])
                 st.dataframe(q)
 
         st.divider()
