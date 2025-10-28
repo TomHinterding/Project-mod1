@@ -1,14 +1,8 @@
 import streamlit as st
-import pandas as pd
-import os
+import query as q
 
-st.set_page_config(
-        page_title="Raw Data",
-        layout="wide"
-)
-
+st.set_page_config(page_title="Raw Data", layout="wide")
 st.header("Raw Voting Data")
-filepath = os.path.join("data/", "table/", "dataset_56_vote.csv")
-Raw_Data = pd.read_csv(filepath)
 
-st.dataframe(Raw_Data, height= 10000)
+df = q.raw_readable()
+st.dataframe(df, use_container_width=True, height=900)
